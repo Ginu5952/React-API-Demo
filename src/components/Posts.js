@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getPosts, deletePost } from "../services/postService";
+import PostForm from "./PostForm";
 
 export default function Posts(){
 
@@ -17,18 +18,20 @@ export default function Posts(){
     },[]);
 
     const handleDelete = (id) => {
+
         deletePost(id)
-        .then((result) => {
-            setPosts(posts.filter(post => post.id !== id));
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-    }
+            .then((result) => {
+                setPosts(posts.filter((post) => post.id !== id));
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
     return(
     <div>
         <h1>Posts</h1>
+        <PostForm posts={posts} setPosts={setPosts}></PostForm>
         <ul>
             {
                 posts.map(post => (
